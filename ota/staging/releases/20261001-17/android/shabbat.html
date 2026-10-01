@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+    <meta name="shabbat-content-revision" content="20261001-17"/>
+    <title>שבת שלום</title>
+    <style>
+        *{box-sizing:border-box;margin:0;padding:0}
+        html,body{min-height:100%;font-family:Arial,Helvetica,sans-serif;color:#e2e8f0;background:#0a0f1e;-webkit-text-size-adjust:100%;text-size-adjust:100%}
+        body{background:radial-gradient(ellipse at 20% 20%,rgba(99,60,180,0.35) 0%,transparent 55%),radial-gradient(ellipse at 80% 80%,rgba(30,80,180,0.3) 0%,transparent 55%),#0a0f1e;background-attachment:fixed}
+        input,button{font-family:inherit}
+        input::placeholder{color:#3a4a5e}
+        input:-webkit-autofill,input:-webkit-autofill:focus{-webkit-box-shadow:0 0 0 1000px rgba(15,20,40,0.95) inset!important;-webkit-text-fill-color:#e2e8f0!important}
+        .page{max-width:420px;margin:0 auto;padding:36px 16px 40px;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
+        #main{flex:1;display:flex;flex-direction:column}
+        #main .footer{margin-top:auto}
+        #empty{flex:1;display:flex;flex-direction:column;text-align:center}
+        .empty-mid{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center}
+        .empty-foot{border-top:1px solid rgba(255,255,255,0.08);padding-top:22px;padding-bottom:8px}
+
+        /* Header */
+        .hdr{text-align:center;margin-bottom:26px}
+        .hdr-icon{font-size:64px;line-height:1;margin-bottom:10px;filter:drop-shadow(0 0 20px rgba(245,166,35,0.5))}
+        .hdr-title{font-size:clamp(34px,11vw,44px);font-weight:900;letter-spacing:2px;margin-bottom:6px;font-style:italic;background:linear-gradient(135deg,#f5a623,#fde68a,#f5a623);-webkit-background-clip:text;-webkit-text-fill-color:transparent;overflow-wrap:anywhere}
+        .hdr-sub{font-size:15px;color:#7a8a9e}
+
+        /* Search */
+        .sw{position:relative;margin-bottom:10px}
+        .sb{display:flex;align-items:center;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px;height:62px;padding:0 20px;gap:12px}
+        .sb input{flex:1;background:none;border:none;outline:none;color:#e2e8f0;font-size:18px;text-align:start;min-width:0}
+        .sdrop{position:absolute;top:calc(100% + 5px);right:0;left:0;background:rgba(12,18,38,0.98);border:1px solid rgba(255,255,255,0.13);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:14px;z-index:100;display:none;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.85)}
+        .sdrop.open{display:block}
+        .sdrop li{list-style:none;padding:14px 20px;font-size:16px;border-bottom:1px solid rgba(255,255,255,0.07);cursor:pointer;display:flex;justify-content:space-between;align-items:center;color:#e2e8f0}
+        .sdrop li:last-child{border-bottom:none}
+        .sdrop li:hover,.sdrop li:active{background:rgba(255,255,255,0.07)}
+        .sdrop-c{font-size:13px;color:#3a4a60}
+
+        /* Sun row */
+        .sun-row{display:flex;gap:10px;margin-bottom:10px}
+        .sun-c{flex:1;border-radius:16px;padding:16px 12px;text-align:center;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+        .sc-rise{background:rgba(180,100,0,0.2);border:1px solid rgba(245,166,35,0.3)}
+        .sc-stars{background:rgba(80,60,200,0.2);border:1px solid rgba(140,120,255,0.3)}
+        .sun-lbl{font-size:12px;font-weight:700;letter-spacing:.5px;margin-bottom:10px}
+        .sc-rise .sun-lbl{color:#d4880a}
+        .sc-stars .sun-lbl{color:#a89aee}
+        .sun-val{font-size:clamp(24px,8vw,32px);font-weight:900;white-space:nowrap;letter-spacing:-.4px}
+        .sc-rise .sun-val{color:#f5a623}
+        .sc-stars .sun-val{color:#c4b5fd}
+
+        /* Shabbat card */
+        .shab{padding:26px 18px 22px;margin-bottom:10px;text-align:center;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:20px}
+        .shab-title{font-size:24px;font-weight:900;margin-bottom:4px;font-style:italic;background:linear-gradient(135deg,#f1f5f9,#cbd5e1);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .shab-date{font-size:13px;color:#6a7a90;margin-bottom:24px}
+        .times{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;width:100%}
+        .tb{flex:1;text-align:center;display:flex;flex-direction:column;align-items:center}
+        .tb-icon{font-size:34px;margin-bottom:9px}
+        .tb-lbl{font-size:13px;color:#7a8a9e;font-weight:700;margin-bottom:7px}
+        .tb-val{font-size:clamp(32px,12vw,52px);font-weight:900;line-height:1;white-space:nowrap;letter-spacing:-1px;max-width:100%}
+        .tb-sub{font-size:12px;color:#4a5a70;margin-top:9px}
+        .cv{color:#f5a623}
+        .hv{color:#9b7ff0}
+        .times-arr{color:rgba(255,255,255,0.18);font-size:20px;flex-shrink:0;padding:0 4px}
+
+        /* English includes AM/PM, so use a smaller responsive scale. This applies
+           equally to Android WebView and iOS WKWebView and resists large text sizes. */
+        html[lang="en"] .tb-val{font-size:clamp(27px,9.2vw,40px);letter-spacing:-1.2px}
+        html[lang="en"] .sun-val{font-size:clamp(21px,6.8vw,29px);letter-spacing:-.8px}
+        html[lang="en"] .tb-sub{font-size:clamp(10px,3.1vw,12px)}
+        @media(max-width:360px){
+          .page{padding-left:12px;padding-right:12px}
+          .shab{padding-left:10px;padding-right:10px}
+          .times-arr{padding:0 1px;font-size:16px}
+          html[lang="en"] .tb-val{font-size:clamp(25px,8.8vw,32px)}
+        }
+
+        /* Omer */
+        .omer{padding:20px 16px;margin-bottom:10px;text-align:center;background:rgba(5,50,20,0.45);border:1px solid rgba(74,222,128,0.25);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px}
+        .omer-lbl{font-size:11px;font-weight:700;color:#4ade80;letter-spacing:.8px;margin-bottom:10px}
+        .omer-num{font-size:62px;font-weight:900;color:#4ade80;line-height:1;margin-bottom:4px}
+        .omer-lets{font-size:22px;font-weight:700;color:#4ade80;margin-bottom:8px}
+        .omer-txt{font-size:14px;color:#86efac;line-height:1.7;margin-bottom:12px}
+        .omer-bracha{font-size:13px;color:#6ee7b7;line-height:1.9;background:rgba(74,222,128,0.07);border-radius:10px;padding:13px 14px;text-align:right;direction:rtl;white-space:pre-line;border:1px solid rgba(74,222,128,0.2)}
+        .omer-soon{font-size:13px;color:#4ade80;margin-top:10px}
+
+        /* Parasha */
+        .para{padding:16px 18px;margin-bottom:10px;text-align:start;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:16px}
+        .para-lbl{font-size:11px;font-weight:700;color:#6a7a90;letter-spacing:.6px;margin-bottom:6px}
+        .para-name{font-size:22px;font-weight:900;font-style:italic;background:linear-gradient(135deg,#fbbf24,#fde68a);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+        /* Tefillin */
+        .tef{padding:20px;margin-bottom:10px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:18px}
+        .tef-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+        .tef-title{font-size:19px;font-weight:700;color:#e2e8f0}
+        #tefBtn{width:100%;padding:17px;border-radius:13px;border:1px solid rgba(255,255,255,0.13);background:rgba(255,255,255,0.05);color:#7a8a9e;font-size:17px;font-weight:600;cursor:pointer;transition:all .2s}
+        #tefBtn.on{background:linear-gradient(135deg,#16a34a,#15803d);border-color:transparent;color:#fff;font-weight:700}
+
+        /* Notif */
+        #notifBtn{width:100%;padding:20px;border-radius:16px;font-size:18px;font-weight:700;cursor:pointer;transition:all .25s;margin-bottom:14px;display:block;border:1px solid rgba(96,165,250,0.3);background:rgba(255,255,255,0.07);color:#93c5fd}
+        #notifBtn.on{background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;border:none}
+
+        /* Footer */
+        .footer{text-align:center;padding-top:20px;border-top:1px solid rgba(255,255,255,0.08);margin-top:4px}
+        .footer-credit{font-size:13px;color:rgba(255,255,255,0.22);margin-bottom:8px}
+        .footer-support{font-size:13px;color:#6a7a90}
+        .footer-support a{color:#93c5fd;text-decoration:none;font-weight:600}
+
+        .lang-picker{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:max(12px,calc(50% - 202px));z-index:500;font-family:Arial,Helvetica,sans-serif}
+        .lang-btn{width:38px;height:34px;padding:0;border:1px solid rgba(147,197,253,.2);border-radius:17px;background:linear-gradient(135deg,rgba(99,60,180,.3),rgba(30,80,180,.28));color:#cbd5e1;font-size:12px;line-height:34px;font-weight:800;text-align:center;box-shadow:0 5px 15px rgba(0,0,0,.16);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);cursor:pointer;-webkit-tap-highlight-color:transparent}
+        .lang-btn:active{transform:scale(.96)}
+        .lang-menu{position:absolute;top:41px;left:0;width:48px;padding:4px;background:rgba(12,18,38,.94);border:1px solid rgba(147,197,253,.14);border-radius:12px;box-shadow:0 12px 32px rgba(0,0,0,.42);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);display:none;overflow:hidden;direction:ltr}
+        .lang-menu.open{display:block}
+        .lang-option{width:100%;border:0;border-radius:9px;background:transparent;color:#cbd5e1;padding:8px 0;font-size:12px;font-weight:800;text-align:center;cursor:pointer;white-space:nowrap}
+        .lang-option:hover,.lang-option:active,.lang-option.active{background:rgba(147,197,253,.18);color:#fff}
+        html[dir="rtl"] .lang-option{text-align:center}
+        @media(max-width:360px){.lang-picker{left:8px}.lang-btn{width:36px;height:32px;line-height:32px;font-size:11px}.lang-menu{top:38px}}
+
+        .hidden{display:none!important}
+        @keyframes spin{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+    </style></head>
+<body>
+<div class="lang-picker" id="langPicker">
+    <button class="lang-btn" id="langBtn" type="button" onclick="toggleLangMenu(event)" aria-label="Change language" aria-haspopup="true" aria-expanded="false">HE</button>
+    <div class="lang-menu" id="langMenu" role="menu">
+        <button class="lang-option" type="button" data-lang="he" onclick="setLanguage('he')">HE</button>
+        <button class="lang-option" type="button" data-lang="en" onclick="setLanguage('en')">EN</button>
+        <button class="lang-option" type="button" data-lang="fr" onclick="setLanguage('fr')">FR</button>
+    </div>
+</div>
+<div class="page">
+
+    <div class="hdr">
+        <div class="hdr-icon">🕯️</div>
+        <div class="hdr-title" data-i18n="headerTitle">שבת שלום</div>
+        <div class="hdr-sub" data-i18n="tagline">זמני שבת וחגים מדויקים</div>
+    </div>
+
+    <div class="sw" id="sw">
+        <div class="sb">
+            <span style="font-size:20px;flex-shrink:0">📍</span>
+            <input id="inp" type="text" data-i18n-ph="searchCity" placeholder="חפש עיר..." autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+            <button id="gpsBtn" onclick="gpsBtnClick()" style="background:none;border:1px solid rgba(255,255,255,0.25);border-radius:10px;color:#93c5fd;font-size:12px;font-weight:700;padding:4px 8px;cursor:pointer;flex-shrink:0;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;font-family:inherit" dir="ltr">GPS</button>
+        </div>
+        <ul class="sdrop" id="sdrop"></ul>
+    </div>
+
+    <div id="main" class="hidden">
+        <div class="sun-row">
+            <div class="sun-c sc-rise">
+                <div class="sun-lbl" data-i18n="sunrise">נץ החמה</div>
+                <div class="sun-val" id="sunriseT">--:--</div>
+            </div>
+            <div class="sun-c sc-stars">
+                <div class="sun-lbl" data-i18n="nightfall">צאת הכוכבים</div>
+                <div class="sun-val" id="starsT">--:--</div>
+            </div>
+        </div>
+
+        <div class="shab">
+            <div class="shab-title" id="evTitle">שבת הקרובה</div>
+            <div class="shab-date" id="evDate"></div>
+            <div class="times">
+                <div class="tb">
+                    <div class="tb-icon" id="iconCandle">🕯️</div>
+                    <div class="tb-lbl" id="lblCandle">כניסה</div>
+                    <div class="tb-val cv" id="tCandle">--:--</div>
+                    <div class="tb-sub" id="subCandle">יום שישי</div>
+                </div>
+                <div class="times-arr">←</div>
+                <div class="tb">
+                    <div class="tb-icon" id="iconHav">⭐</div>
+                    <div class="tb-lbl" id="lblHav">יציאה</div>
+                    <div class="tb-val hv" id="tHav">--:--</div>
+                    <div class="tb-sub" id="subHav">מוצאי שבת</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="omer hidden" id="omerCard">
+            <div class="omer-lbl">📜 <span data-i18n="omerCount">ספירת העומר</span></div>
+            <div class="omer-num" id="omerNum"></div>
+            <div class="omer-lets" id="omerLets"></div>
+            <div class="omer-txt" id="omerTxt"></div>
+            <div class="omer-bracha" id="omerBracha"></div>
+            <div class="omer-soon hidden" id="omerSoon" data-i18n="omerSoon">⏳ הספירה תתחיל עם צאת הכוכבים</div>
+        </div>
+
+        <div class="para" id="paraCard">
+            <div class="para-lbl">📖 <span data-i18n="weeklyParasha">פרשת השבוע</span></div>
+            <div class="para-name" id="paraName"></div>
+        </div>
+
+        <div class="tef">
+            <div class="tef-hdr">
+                <div class="tef-title" data-i18n="tefillinToday">הנחת תפילין היום</div>
+                <span style="font-size:28px">👉</span>
+            </div>
+            <button id="tefBtn" onclick="togTef()">☐ לא הונחו עדיין</button>
+        </div>
+
+        <button id="notifBtn" class="off" onclick="togNotif()">🔔 הפעל התראה 3 שעות לפני שבת</button>
+
+        <div class="footer">
+            <div class="footer-credit">Made by Avishai Tzabary</div>
+            <div class="footer-support"><span data-i18n="support">תמיכה טכנית:</span> <a href="mailto:shabbatsupport@gmail.com">shabbatsupport@gmail.com</a></div>
+        </div>
+    </div>
+
+    <div id="empty">
+        <div class="empty-mid">
+            <div style="font-size:100px;line-height:1;margin-bottom:20px">🌍</div>
+            <div style="font-size:16px;color:#94a3b8" data-i18n="enterCity">הזן שם עיר למעלה כדי להתחיל</div>
+        </div>
+        <div class="empty-foot">
+            <div style="font-size:13px;color:rgba(255,255,255,0.22);margin-bottom:8px">Made by Avishai Tzabary</div>
+            <div style="font-size:13px;color:#6a7a90"><span data-i18n="support">תמיכה טכנית:</span> <a href="mailto:shabbatsupport@gmail.com" style="color:#93c5fd;text-decoration:none;font-weight:600">shabbatsupport@gmail.com</a></div>
+        </div>
+    </div>
+
+</div>
+<script>
+    var CI=[
+      {n:"ירושלים",e:"Jerusalem",f:"Jérusalem",la:31.7683,lo:35.2137,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"תל אביב",e:"Tel Aviv",f:"Tel Aviv",la:32.0853,lo:34.7818,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"חיפה",e:"Haifa",f:"Haïfa",la:32.794,lo:34.9896,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"באר שבע",e:"Beer Sheva",f:"Beer Sheva",la:31.2518,lo:34.7913,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"נתניה",e:"Netanya",f:"Netanya",la:32.3328,lo:34.86,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"רמת גן",e:"Ramat Gan",f:"Ramat Gan",la:32.0684,lo:34.8248,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"פתח תקווה",e:"Petah Tikva",f:"Petah Tikva",la:32.087,lo:34.8878,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"ראשון לציון",e:"Rishon LeZion",f:"Rishon LeTsiyon",la:31.973,lo:34.7925,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"אשדוד",e:"Ashdod",f:"Ashdod",la:31.795,lo:34.65,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"גני תקווה",e:"Ganei Tikva",f:"Ganei Tikva",la:32.0641,lo:34.8808,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"מודיעין",e:"Modi'in",f:"Modi'in",la:31.8969,lo:35.0095,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"אילת",e:"Eilat",f:"Eilat",la:29.5581,lo:34.9482,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"צפת",e:"Tzfat",f:"Tsfat",la:32.9646,lo:35.496,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"טבריה",e:"Tiberias",f:"Tibériade",la:32.794,lo:35.531,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"נצרת",e:"Nazareth",f:"Nazareth",la:32.6996,lo:35.3035,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"בני ברק",e:"Bnei Brak",f:"Bnei Brak",la:32.0833,lo:34.8333,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"הרצליה",e:"Herzliya",f:"Herzliya",la:32.1663,lo:34.8438,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"כפר סבא",e:"Kfar Saba",f:"Kfar Saba",la:32.1789,lo:34.9063,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"רעננה",e:"Ra'anana",f:"Ra'anana",la:32.1836,lo:34.8706,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"בת ים",e:"Bat Yam",f:"Bat Yam",la:32.0204,lo:34.7506,tz:"Asia/Jerusalem",c:"ישראל"},
+      {n:"ניו יורק",e:"New York",f:"New York",la:40.7128,lo:-74.006,tz:"America/New_York",c:"ארה״ב"},
+      {n:"לוס אנג'לס",e:"Los Angeles",f:"Los Angeles",la:34.0522,lo:-118.2437,tz:"America/Los_Angeles",c:"ארה״ב"},
+      {n:"שיקגו",e:"Chicago",f:"Chicago",la:41.8781,lo:-87.6298,tz:"America/Chicago",c:"ארה״ב"},
+      {n:"מיאמי",e:"Miami",f:"Miami",la:25.7617,lo:-80.1918,tz:"America/New_York",c:"ארה״ב"},
+      {n:"בוסטון",e:"Boston",f:"Boston",la:42.3601,lo:-71.0589,tz:"America/New_York",c:"ארה״ב"},
+      {n:"ברוקלין",e:"Brooklyn",f:"Brooklyn",la:40.6782,lo:-73.9442,tz:"America/New_York",c:"ארה״ב"},
+      {n:"לונדון",e:"London",f:"Londres",la:51.5074,lo:-0.1278,tz:"Europe/London",c:"בריטניה"},
+      {n:"פריז",e:"Paris",f:"Paris",la:48.8566,lo:2.3522,tz:"Europe/Paris",c:"צרפת"},
+      {n:"מרסיי",e:"Marseille",f:"Marseille",la:43.2965,lo:5.3698,tz:"Europe/Paris",c:"צרפת"},
+      {n:"ליון",e:"Lyon",f:"Lyon",la:45.764,lo:4.8357,tz:"Europe/Paris",c:"צרפת"},
+      {n:"ניצה",e:"Nice",f:"Nice",la:43.7102,lo:7.262,tz:"Europe/Paris",c:"צרפת"},
+      {n:"טולוז",e:"Toulouse",f:"Toulouse",la:43.6047,lo:1.4442,tz:"Europe/Paris",c:"צרפת"},
+      {n:"שטרסבורג",e:"Strasbourg",f:"Strasbourg",la:48.5734,lo:7.7521,tz:"Europe/Paris",c:"צרפת"},
+      {n:"בורדו",e:"Bordeaux",f:"Bordeaux",la:44.8378,lo:-0.5792,tz:"Europe/Paris",c:"צרפת"},
+      {n:"סופיה",e:"Sofia",f:"Sofia",la:42.6977,lo:23.3219,tz:"Europe/Sofia",c:"בולגריה"},
+      {n:"פלובדיב",e:"Plovdiv",f:"Plovdiv",la:42.1354,lo:24.7453,tz:"Europe/Sofia",c:"בולגריה"},
+      {n:"ורנה",e:"Varna",f:"Varna",la:43.2141,lo:27.9147,tz:"Europe/Sofia",c:"בולגריה"},
+      {n:"בורגס",e:"Burgas",f:"Burgas",la:42.5048,lo:27.4626,tz:"Europe/Sofia",c:"בולגריה"},
+      {n:"רוסה",e:"Ruse",f:"Roustchouk",la:43.8356,lo:25.9657,tz:"Europe/Sofia",c:"בולגריה"},
+      {n:"ברלין",e:"Berlin",f:"Berlin",la:52.52,lo:13.405,tz:"Europe/Berlin",c:"גרמניה"},
+      {n:"אמסטרדם",e:"Amsterdam",f:"Amsterdam",la:52.3676,lo:4.9041,tz:"Europe/Amsterdam",c:"הולנד"},
+      {n:"רומא",e:"Rome",f:"Rome",la:41.9028,lo:12.4964,tz:"Europe/Rome",c:"איטליה"},
+      {n:"דובאי",e:"Dubai",f:"Dubaï",la:25.2048,lo:55.2708,tz:"Asia/Dubai",c:"איחוד האמירויות"},
+      {n:"טוקיו",e:"Tokyo",f:"Tokyo",la:35.6762,lo:139.6503,tz:"Asia/Tokyo",c:"יפן"},
+      {n:"סידני",e:"Sydney",f:"Sydney",la:-33.8688,lo:151.2093,tz:"Australia/Sydney",c:"אוסטרליה"},
+      {n:"טורונטו",e:"Toronto",f:"Toronto",la:43.6532,lo:-79.3832,tz:"America/Toronto",c:"קנדה"},
+      {n:"בואנוס איירס",e:"Buenos Aires",f:"Buenos Aires",la:-34.6037,lo:-58.3816,tz:"America/Argentina/Buenos_Aires",c:"ארגנטינה"},
+      {n:"בנקוק",e:"Bangkok",f:"Bangkok",la:13.7563,lo:100.5018,tz:"Asia/Bangkok",c:"תאילנד"},
+      {n:"קו סמוי",e:"Koh Samui",f:"Koh Samui",la:8.9545,lo:100.2824,tz:"Asia/Bangkok",c:"תאילנד"},
+    ];
+
+    // ── Language (manual choice is saved; device locale is the first-use default) ─
+    function deviceLanguage(){var l=(navigator.language||navigator.userLanguage||'he').toLowerCase();if(l.indexOf('he')===0)return'he';if(l.indexOf('fr')===0)return'fr';return'en';}
+    var LANG=(function(){try{var saved=localStorage.getItem('shabbat_language');if(saved==='he'||saved==='en'||saved==='fr')return saved;}catch(e){}return deviceLanguage();})();
+    var FMT_LOCALE=(LANG==='he')?'he-IL':(LANG==='fr')?'fr-FR':'en-US';
+    var T={
+     he:{headerTitle:"שבת שלום",tagline:"זמני שבת וחגים מדויקים",searchCity:"חפש עיר...",currentLocation:"המיקום הנוכחי",sunrise:"נץ החמה",nightfall:"צאת הכוכבים",omerCount:"ספירת העומר",omerSoon:"⏳ הספירה תתחיל עם צאת הכוכבים",weeklyParasha:"פרשת השבוע",tefillinToday:"הנחת תפילין היום",enterCity:"הזן שם עיר למעלה כדי להתחיל",support:"תמיכה טכנית:",shabbatName:"שבת",upcomingShabbat:"שבת הקרובה",entry:"כניסה",exit:"יציאה",friday:"יום שישי",motzaeiShabbat:"מוצאי שבת",holidayInSub:"כניסת החג",holidayOutSub:"צאת החג",fastBegin:"תחילת הצום",fastEnd:"סיום הצום",fastNight:"ליל הצום",fastDawn:"עלות השחר",fastStars:"צאת הכוכבים",tefOn:"✅ הונחו תפילין היום",tefOff:"☐ לא הונחו עדיין",notifOn:"✅ ההתראה הופעלה",notifOff:"🔔 הפעל התראה 3 שעות לפני שבת",openChrome:"פתח ב-Chrome לקבלת התראות",notifDenied:"חסמת התראות. שנה בהגדרות הדפדפן.",notifPerm:"כדי לקבל התראות, אשר לאפליקציה הרשאת התראות בהגדרות הטלפון.",notifNo:"לא אושרו התראות.",notifTitle:"🕯️ שבת שלום!",notifBody:"כניסת שבת בעוד 3 שעות: ",fastPrefix:"צום "},
+     en:{headerTitle:"Shabbat Shalom",tagline:"Accurate Shabbat & holiday times",searchCity:"Search city...",currentLocation:"Current location",sunrise:"Sunrise",nightfall:"Nightfall",omerCount:"Omer Count",omerSoon:"⏳ Counting begins at nightfall",weeklyParasha:"Weekly Parasha",tefillinToday:"Tefillin today",enterCity:"Enter a city above to begin",support:"Support:",shabbatName:"Shabbat",upcomingShabbat:"Upcoming Shabbat",entry:"Entry",exit:"Exit",friday:"Friday",motzaeiShabbat:"Shabbat ends",holidayInSub:"Holiday begins",holidayOutSub:"Holiday ends",fastBegin:"Fast begins",fastEnd:"Fast ends",fastNight:"Eve of fast",fastDawn:"Dawn",fastStars:"Nightfall",tefOn:"✅ Tefillin done today",tefOff:"☐ Not yet",notifOn:"✅ Notifications enabled",notifOff:"🔔 Notify 3 hours before Shabbat",openChrome:"Open in Chrome for notifications",notifDenied:"Notifications blocked. Change in browser settings.",notifPerm:"To get notifications, allow notification permission in phone settings.",notifNo:"Notifications not allowed.",notifTitle:"🕯️ Shabbat Shalom!",notifBody:"Shabbat begins in 3 hours: ",fastPrefix:"Fast of "},
+     fr:{headerTitle:"Chabbat Chalom",tagline:"Horaires précis de Chabbat et des fêtes",searchCity:"Rechercher une ville...",currentLocation:"Position actuelle",sunrise:"Lever du soleil",nightfall:"Sortie des étoiles",omerCount:"Compte du Omer",omerSoon:"⏳ Le compte commence à la sortie des étoiles",weeklyParasha:"Paracha de la semaine",tefillinToday:"Mise des téfiline aujourd’hui",enterCity:"Saisissez une ville ci-dessus pour commencer",support:"Assistance :",shabbatName:"Chabbat",upcomingShabbat:"Prochain Chabbat",entry:"Entrée",exit:"Sortie",friday:"Vendredi",motzaeiShabbat:"Fin de Chabbat",holidayInSub:"Début de la fête",holidayOutSub:"Fin de la fête",fastBegin:"Début du jeûne",fastEnd:"Fin du jeûne",fastNight:"Veille du jeûne",fastDawn:"Aube",fastStars:"Sortie des étoiles",tefOn:"✅ Téfiline posés aujourd’hui",tefOff:"☐ Pas encore",notifOn:"✅ Notifications activées",notifOff:"🔔 Me prévenir 3 heures avant Chabbat",openChrome:"Ouvrez Chrome pour recevoir les notifications",notifDenied:"Les notifications sont bloquées. Modifiez ce réglage dans les paramètres du navigateur.",notifPerm:"Pour recevoir des notifications, autorisez-les dans les paramètres du téléphone.",notifNo:"Notifications non autorisées.",notifTitle:"🕯️ Chabbat Chalom !",notifBody:"Chabbat commence dans 3 heures : ",fastPrefix:"Jeûne de "}
+    };
+    function t(k){return (T[LANG]&&T[LANG][k]!=null)?T[LANG][k]:(T.he[k]!=null?T.he[k]:k);}
+    var COUNTRY_EN={"ישראל":"Israel","ארה״ב":"USA","בריטניה":"UK","צרפת":"France","גרמניה":"Germany","הולנד":"Netherlands","איטליה":"Italy","איחוד האמירויות":"UAE","יפן":"Japan","אוסטרליה":"Australia","קנדה":"Canada","ארגנטינה":"Argentina","בולגריה":"Bulgaria","תאילנד":"Thailand"};
+    var COUNTRY_FR={"ישראל":"Israël","ארה״ב":"É.-U.","בריטניה":"Royaume-Uni","צרפת":"France","גרמניה":"Allemagne","הולנד":"Pays-Bas","איטליה":"Italie","איחוד האמירויות":"É.A.U.","יפן":"Japon","אוסטרליה":"Australie","קנדה":"Canada","ארגנטינה":"Argentine","בולגריה":"Bulgarie","תאילנד":"Thaïlande"};
+    var HOLIDAY_EN={"ראש השנה":"Rosh Hashanah","יום כיפור":"Yom Kippur","סוכות":"Sukkot","שמיני עצרת":"Shemini Atzeret","שמחת תורה":"Simchat Torah","שמיני עצרת ושמחת תורה":"Shemini Atzeret & Simchat Torah","פסח":"Passover","שבועות":"Shavuot","צום גדליה":"Fast of Gedaliah","עשרה בטבת":"Fast of 10 Tevet","תענית אסתר":"Fast of Esther","י\"ז בתמוז":"Fast of 17 Tammuz","תשעה באב":"Tisha B’Av","חנוכה":"Hanukkah","פורים":"Purim"};
+    var HOLIDAY_FR={"ראש השנה":"Roch Hachana","יום כיפור":"Yom Kippour","סוכות":"Soukkot","שמיני עצרת":"Chemini Atséret","שמחת תורה":"Sim’hat Torah","שמיני עצרת ושמחת תורה":"Chemini Atséret & Sim’hat Torah","פסח":"Pessa’h","שבועות":"Chavouot","צום גדליה":"Jeûne de Guédalia","עשרה בטבת":"Jeûne du 10 Tévet","תענית אסתר":"Jeûne d’Esther","י\"ז בתמוז":"Jeûne du 17 Tamouz","תשעה באב":"Tichea BeAv","חנוכה":"Hanoucca","פורים":"Pourim"};
+    function holidayName(name){return LANG==='he'?name:(LANG==='fr'?(HOLIDAY_FR[name]||name):(HOLIDAY_EN[name]||name));}
+    function cityName(c){return LANG==='he'?c.n:(LANG==='fr'?(c.f||c.e||c.n):(c.e||c.n));}
+    function cityCountry(c){return LANG==='he'?c.c:(LANG==='fr'?(COUNTRY_FR[c.c]||c.c):(COUNTRY_EN[c.c]||c.c));}
+    function cityLabel(c){return cityName(c)+(c.c&&c.c!=="ישראל"?" – "+cityCountry(c):"");}
+    function applyLang(){
+     try{document.documentElement.setAttribute('dir',LANG==='he'?'rtl':'ltr');document.documentElement.setAttribute('lang',LANG);}catch(e){}
+     var els=document.querySelectorAll('[data-i18n]');for(var i=0;i<els.length;i++){els[i].textContent=t(els[i].getAttribute('data-i18n'));}
+     var ph=document.querySelectorAll('[data-i18n-ph]');for(var j=0;j<ph.length;j++){ph[j].setAttribute('placeholder',t(ph[j].getAttribute('data-i18n-ph')));}
+     var btn=document.getElementById('langBtn');if(btn)btn.textContent=LANG==='he'?'HE':(LANG==='fr'?'FR':'EN');
+     var opts=document.querySelectorAll('.lang-option');for(var k=0;k<opts.length;k++){opts[k].classList.toggle('active',opts[k].getAttribute('data-lang')===LANG);}
+    }
+
+    // Lightweight OTA configuration. This updates labels/data in-place without
+    // reloading the WebView, so the current screen, scroll position and UI state
+    // are preserved.
+    window.applyRemoteConfig=function(cfg){
+     try{
+      if(!cfg||typeof cfg!=='object')return '';
+      var labels=cfg.labels||{};
+      ['he','en','fr'].forEach(function(lang){
+       if(!labels[lang]||!T[lang])return;
+       Object.keys(labels[lang]).forEach(function(key){
+        if(typeof labels[lang][key]==='string')T[lang][key]=labels[lang][key];
+       });
+      });
+      applyLang();
+      var el=document.querySelector('[data-i18n="sunrise"]');
+      return el?el.textContent:'';
+     }catch(e){return '';}
+    };
+
+    function toggleLangMenu(ev){
+     if(ev&&ev.stopPropagation)ev.stopPropagation();
+     var menu=document.getElementById('langMenu'),btn=document.getElementById('langBtn');if(!menu)return;
+     var open=!menu.classList.contains('open');menu.classList.toggle('open',open);if(btn)btn.setAttribute('aria-expanded',open?'true':'false');
+    }
+    function closeLangMenu(){var menu=document.getElementById('langMenu'),btn=document.getElementById('langBtn');if(menu)menu.classList.remove('open');if(btn)btn.setAttribute('aria-expanded','false');}
+    function setLanguage(lang){
+     if(lang!=='he'&&lang!=='en'&&lang!=='fr')return;
+     LANG=lang;FMT_LOCALE=(LANG==='he')?'he-IL':(LANG==='fr')?'fr-FR':'en-US';
+     try{localStorage.setItem('shabbat_language',LANG);}catch(e){}
+     if(NATIVE&&NATIVE.language)NATIVE.language(LANG);
+     applyLang();closeLangMenu();
+     if(city){var inp=document.getElementById('inp');if(inp)inp.value=cityLabel(city);render();schedNext();}else{refreshNotif();}
+    }
+    document.addEventListener('click',function(ev){var picker=document.getElementById('langPicker');if(picker&&!picker.contains(ev.target))closeLangMenu();});
+
+    // ── Sun math – with configurable zenith angle ──────────────────────────────
+    function jd(y,m,d){if(m<=2){y--;m+=12;}var A=Math.floor(y/100),B=2-A+Math.floor(A/4);return Math.floor(365.25*(y+4716))+Math.floor(30.6001*(m+1))+d+B-1524.5;}
+
+    function sol(lat,lng,date,rising,zenith){
+      zenith=zenith||90.833;
+      var y=date.getFullYear(),mo=date.getMonth()+1,d=date.getDate();
+      var JD=jd(y,mo,d);
+      var T=(JD-2451545)/36525;
+      var L0=(280.46646+36000.76983*T+0.0003032*T*T)%360;if(L0<0)L0+=360;
+      var M=(357.52911+35999.05029*T-0.0001537*T*T)%360;if(M<0)M+=360;
+      var Mr=M*Math.PI/180;
+      var e=0.016708634-0.000042037*T-0.0000001267*T*T;
+      var C=Math.sin(Mr)*(1.914602-0.004817*T-0.000014*T*T)+Math.sin(2*Mr)*(0.019993-0.000101*T)+Math.sin(3*Mr)*0.000289;
+      var trueLong=L0+C;
+      var omega=125.04-1934.136*T;
+      var lam=(trueLong-0.00569-0.00478*Math.sin(omega*Math.PI/180))*Math.PI/180;
+      var e0=23+26/60+21.448/3600-T*(46.815+T*(0.00059-T*0.001813))/3600;
+      var eps=(e0+0.00256*Math.cos(omega*Math.PI/180))*Math.PI/180;
+      var sD=Math.sin(eps)*Math.sin(lam),cD=Math.cos(Math.asin(sD)),lR=lat*Math.PI/180;
+      var yterm=Math.tan(eps/2)*Math.tan(eps/2);
+      var L0r=L0*Math.PI/180;
+      var eot=4*(yterm*Math.sin(2*L0r)-2*e*Math.sin(Mr)+4*e*yterm*Math.sin(Mr)*Math.cos(2*L0r)-0.5*yterm*yterm*Math.sin(4*L0r)-1.25*e*e*Math.sin(2*Mr))*180/Math.PI;
+      var cosH=(Math.cos(zenith*Math.PI/180)-Math.sin(lR)*sD)/(Math.cos(lR)*cD);
+      if(cosH<-1||cosH>1)return null;
+      var H0=Math.acos(cosH)*180/Math.PI;
+      var solarNoonMin=720-4*lng-eot;
+      var eventMin=rising?(solarNoonMin-4*H0):(solarNoonMin+4*H0);
+      var sv=((eventMin/60)%24+24)%24;
+      var hh=Math.floor(sv),mm=Math.floor((sv-hh)*60),ss=Math.floor(((sv-hh)*60-mm)*60);
+      return new Date(Date.UTC(y,mo-1,d,hh,mm,ss));
+    }
+
+    // Standard sunset/sunrise (horizon + refraction)
+    var ssU=function(la,lo,d){return sol(la,lo,d,false,90.833);};
+    var srU=function(la,lo,d){return sol(la,lo,d,true,90.833);};
+    // Tzet hakochavim = sun 6° below horizon (96°) → matches luach times
+    var tzetF=function(la,lo,d){return sol(la,lo,d,false,96);};
+    // Candle lighting = 18 min before sunset by default; Jerusalem's well-known custom is 40 min
+    function candleOffset(c){
+      if(!c)return 20;
+      // GPS names vary by language and may be a neighbourhood, so use proximity
+      // for the special Jerusalem/Haifa customs instead of relying only on text.
+      if(c.gps){
+        if(haversineKm(c.la,c.lo,31.7683,35.2137)<=15)return 40;
+        if(haversineKm(c.la,c.lo,32.794,34.9896)<=15)return 30;
+        return c.tz==="Asia/Jerusalem"?20:18;
+      }
+      if(c.c!=="ישראל")return 18;
+      if(c.n==="ירושלים")return 40;
+      if(c.n==="חיפה")return 30;
+      return 20;
+    }
+    var candF=function(la,lo,d,city){var s=ssU(la,lo,d);return s?new Date(s.getTime()-candleOffset(city)*60000):null;};
+    // Havdalah = sun 8.5° below horizon ("3 small stars" – matches Hebcal's default motzaei-Shabbat calculation)
+    var havdF=function(la,lo,d){return sol(la,lo,d,false,98.5);};
+    // Alot hashachar (dawn) – sun 16.1° below horizon; fallback 72 min before sunrise
+    var dawnF=function(la,lo,d){var r=sol(la,lo,d,true,106.1);if(r)return r;var s=srU(la,lo,d);return s?new Date(s.getTime()-72*60000):null;};
+
+    function cityDateParts(date,tz){
+      try{
+        var parts=new Intl.DateTimeFormat("en-US",{timeZone:tz,year:"numeric",month:"numeric",day:"numeric"}).formatToParts(date);
+        var out={y:0,m:0,d:0};
+        for(var i=0;i<parts.length;i++){
+          if(parts[i].type==="year")out.y=parseInt(parts[i].value,10);
+          else if(parts[i].type==="month")out.m=parseInt(parts[i].value,10);
+          else if(parts[i].type==="day")out.d=parseInt(parts[i].value,10);
+        }
+        if(out.y&&out.m&&out.d)return out;
+      }catch(e){}
+      return{y:date.getFullYear(),m:date.getMonth()+1,d:date.getDate()};
+    }
+    function cityNoon(date,tz){
+      var p=cityDateParts(date,tz);
+      return new Date(p.y,p.m-1,p.d,12,0,0,0);
+    }
+    function dateKeyInTz(date,tz){
+      var p=cityDateParts(date,tz);
+      return p.y+"-"+("0"+p.m).slice(-2)+"-"+("0"+p.d).slice(-2);
+    }
+    function nxtDow(from,dow){var d=new Date(from);d.setHours(12,0,0,0);var diff=(dow-d.getDay()+7)%7||7;d.setDate(d.getDate()+diff);return d;}
+
+    // ── Observance (Shabbat / Yom Tov / fast) entry & exit times ──────────────────
+    function obsFor(la,lo,h,city){
+      var first=new Date(h.d.getFullYear(),h.d.getMonth(),h.d.getDate());first.setHours(12,0,0,0);
+      var last=new Date((h.end||h.d).getFullYear(),(h.end||h.d).getMonth(),(h.end||h.d).getDate());last.setHours(12,0,0,0);
+      var erev=new Date(first);erev.setDate(erev.getDate()-1);
+      if(h.f){ // fast
+        if(h.mj){
+          // Yom Kippur follows candle-lighting custom; Tisha B'Av starts at
+          // actual sunset. They must not share the same entry calculation.
+          var majorEntry=(h.n==="תשעה באב")?ssU(la,lo,erev):candF(la,lo,erev,city);
+          return{title:holidayName(h.n),kind:"fast",entry:majorEntry,exit:tzetF(la,lo,first),
+                 lblIn:t("fastBegin"),lblOut:t("fastEnd"),subIn:t("fastNight"),subOut:t("fastStars"),icoIn:"🌙",icoOut:"⭐"};
+        }
+        return{title:holidayName(h.n),kind:"fast",entry:dawnF(la,lo,first),exit:tzetF(la,lo,first),
+               lblIn:t("fastBegin"),lblOut:t("fastEnd"),subIn:t("fastDawn"),subOut:t("fastStars"),icoIn:"🌅",icoOut:"⭐"};
+      }
+      if(h.yt) // Yom Tov – candle lighting to havdalah
+        return{title:holidayName(h.n),kind:"chag",entry:candF(la,lo,erev,city),exit:havdF(la,lo,last),
+               lblIn:t("entry"),lblOut:t("exit"),subIn:t("holidayInSub"),subOut:t("holidayOutSub"),icoIn:"🕯️",icoOut:"⭐"};
+      return null; // Hanukkah / Purim – no entry/exit card
+    }
+
+    function ft(d,tz){
+      if(!d)return'--:--';
+      try{
+        var s=d.toLocaleTimeString(FMT_LOCALE,{hour:"2-digit",minute:"2-digit",hour12:(LANG==='en'),timeZone:tz});
+        if(s&&s.indexOf(':')>-1)return s;
+      }catch(e){}
+      try{
+        var tzDate=new Date(d.toLocaleString('en-US',{timeZone:tz}));
+        var hh=tzDate.getHours(),mm=tzDate.getMinutes();
+        return("0"+hh).slice(-2)+":"+("0"+mm).slice(-2);
+      }catch(e){}
+      return"--:--";
+    }
+
+    // ── Hebrew calendar (Dershowitz & Reingold) — holiday/fast dates are COMPUTED ─
+    // from the real Hebrew calendar, never hardcoded, so they are always accurate
+    // and always relative to "today". Verified against authoritative luach dates.
+    function _hmod(a,b){return((a%b)+b)%b;}
+    function _gLeap(y){return(y%4===0)&&(y%100!==0||y%400===0);}
+    function _gFix(y,m,d){return 365*(y-1)+Math.floor((y-1)/4)-Math.floor((y-1)/100)+Math.floor((y-1)/400)+Math.floor((367*m-362)/12)+(m<=2?0:(_gLeap(y)?-1:-2))+d;}
+    function _gFromFix(date){var d0=date-1,n400=Math.floor(d0/146097),d1=_hmod(d0,146097),n100=Math.floor(d1/36524),d2=_hmod(d1,36524),n4=Math.floor(d2/1461),d3=_hmod(d2,1461),n1=Math.floor(d3/365),year=400*n400+100*n100+4*n4+n1;if(n100===4||n1===4)return{y:year,m:12,d:31};year+=1;var mar=_gFix(year,3,1),corr=(date<mar)?0:(_gLeap(year)?1:2),month=Math.floor((12*(date-_gFix(year,1,1)+corr)+373)/367),day=date-_gFix(year,month,1)+1;return{y:year,m:month,d:day};}
+    var _HEB_EPOCH=-1373427;
+    function _hLeap(y){return _hmod(7*y+1,19)<7;}
+    function _hLastMonth(y){return _hLeap(y)?13:12;}
+    function _hElapsed(y){var me=Math.floor((235*y-234)/19),pe=12084+13753*me,day=me*29+Math.floor(pe/25920);return(_hmod(3*(day+1),7)<3)?day+1:day;}
+    function _hCorr(y){var a=_hElapsed(y-1),b=_hElapsed(y),c=_hElapsed(y+1);if(c-b===356)return 2;if(b-a===382)return 1;return 0;}
+    function _hNewYear(y){return _HEB_EPOCH+_hElapsed(y)+_hCorr(y);}
+    function _hYearLen(y){return _hNewYear(y+1)-_hNewYear(y);}
+    function _hLongChesh(y){var n=_hYearLen(y);return n===355||n===385;}
+    function _hShortKis(y){var n=_hYearLen(y);return n===353||n===383;}
+    function _hMonthLen(y,m){if([2,4,6,10,13].indexOf(m)>=0)return 29;if(m===12&&!_hLeap(y))return 29;if(m===8&&!_hLongChesh(y))return 29;if(m===9&&_hShortKis(y))return 29;return 30;}
+    function _hFix(y,m,d){var r=_hNewYear(y)+d-1,mm;if(m<7){var last=_hLastMonth(y);for(mm=7;mm<=last;mm++)r+=_hMonthLen(y,mm);for(mm=1;mm<m;mm++)r+=_hMonthLen(y,mm);}else{for(mm=7;mm<m;mm++)r+=_hMonthLen(y,mm);}return r;}
+    function _hDow(y,m,d){return _hmod(_hFix(y,m,d),7);} // 0=Sun..6=Sat
+    function _hDate(y,m,d){var g=_gFromFix(_hFix(y,m,d));return new Date(g.y,g.m-1,g.d,12,0,0,0);}
+    function _adarLate(y){return _hLeap(y)?13:12;} // month where Purim / Ta'anit Esther fall
+
+    function holidaysForHebrewYear(hy,israel){
+      var L=[];
+      function fast(name,m,d,major){var dd=d;if(_hDow(hy,m,d)===6)dd=d+1;L.push({n:name,d:_hDate(hy,m,dd),f:1,mj:major?1:0});}
+      function yomTov(name,m,first,last){
+        L.push({n:name,d:_hDate(hy,m,first),end:_hDate(hy,m,last==null?first:last),yt:1});
+      }
+
+      // Only actual Yom-Tov days are represented as Yom Tov. Chol HaMoed is
+      // intentionally excluded so the card advances instead of staying on one
+      // holiday for an entire week. Dates are calculated for every Hebrew year.
+      yomTov("ראש השנה",7,1,2);
+      L.push({n:"יום כיפור",d:_hDate(hy,7,10),f:1,mj:1});
+
+      if(israel){
+        yomTov("סוכות",7,15);
+        yomTov("שמיני עצרת ושמחת תורה",7,22);
+        yomTov("פסח",1,15);
+        yomTov("פסח",1,21);
+        yomTov("שבועות",3,6);
+      }else{
+        yomTov("סוכות",7,15,16);
+        yomTov("שמיני עצרת",7,22);
+        yomTov("שמחת תורה",7,23);
+        yomTov("פסח",1,15,16);
+        yomTov("פסח",1,21,22);
+        yomTov("שבועות",3,6,7);
+      }
+
+      fast("צום גדליה",7,3,false);
+      fast("עשרה בטבת",10,10,false);
+      var la=_adarLate(hy),ed=13;if(_hDow(hy,la,13)===6)ed=11;
+      L.push({n:"תענית אסתר",d:_hDate(hy,la,ed),f:1,mj:0});
+      fast("י\"ז בתמוז",4,17,false);
+      fast("תשעה באב",5,9,true);
+      L.push({n:"חנוכה",d:_hDate(hy,9,25),end:_hDate(hy,10,_hMonthLen(hy,9)===30?2:3)});
+      L.push({n:"פורים",d:_hDate(hy,la,14)});
+      return L;
+    }
+    // Build ~3 Hebrew years around "now" so there is always an upcoming event and a
+    // currently-running one; render() filters out anything already past.
+    function buildHolidays(now,israel){
+      var gy=now.getFullYear(),L=[],ys=[gy+3759,gy+3760,gy+3761],i;
+      for(i=0;i<ys.length;i++)L=L.concat(holidaysForHebrewYear(ys[i],israel));
+      L.sort(function(a,b){return a.d-b.d;});
+      return L;
+    }
+
+    // ── Parasha ───────────────────────────────────────────────────────────────────
+    var PM=(function(){
+      var m={};
+      [[2026,1,3,"ויחי"],[2026,1,10,"שמות"],[2026,1,17,"וארא"],[2026,1,24,"בא"],[2026,1,31,"בשלח"],
+       [2026,2,7,"יתרו"],[2026,2,14,"משפטים"],[2026,2,21,"תרומה"],[2026,2,28,"תצוה"],
+       [2026,3,7,"כי תשא"],[2026,3,14,"ויקהל-פקודי"],[2026,3,21,"ויקרא"],[2026,3,28,"צו"],
+       [2026,4,11,"שמיני"],[2026,4,18,"תזריע-מצורע"],[2026,4,25,"אחרי מות-קדושים"],
+       [2026,5,2,"אמור"],[2026,5,9,"בהר-בחוקותי"],[2026,5,16,"במדבר"],[2026,5,23,"נשא"],[2026,5,30,"בהעלותך"],
+       [2026,6,6,"שלח"],[2026,6,13,"קרח"],[2026,6,20,"חוקת"],[2026,6,27,"בלק"],
+       [2026,7,4,"פינחס"],[2026,7,11,"מטות-מסעי"],[2026,7,18,"דברים"],[2026,7,25,"ואתחנן"],
+       [2026,8,1,"עקב"],[2026,8,8,"ראה"],[2026,8,15,"שופטים"],[2026,8,22,"כי תצא"],[2026,8,29,"כי תבוא"],
+       [2026,9,5,"נצבים-וילך"],[2026,9,19,"האזינו"],
+       [2026,10,10,"בראשית"],[2026,10,17,"נח"],[2026,10,24,"לך לך"],[2026,10,31,"וירא"],
+       [2026,11,7,"חיי שרה"],[2026,11,14,"תולדות"],[2026,11,21,"ויצא"],[2026,11,28,"וישלח"],
+       [2026,12,5,"וישב"],[2026,12,12,"מקץ"],[2026,12,19,"ויגש"],[2026,12,26,"ויחי"],
+       [2027,1,2,"שמות"],[2027,1,9,"וארא"],[2027,1,16,"בא"],[2027,1,23,"בשלח"],[2027,1,30,"יתרו"],
+       [2027,2,6,"משפטים"],[2027,2,13,"תרומה"],[2027,2,20,"תצוה"],[2027,2,27,"כי תשא"],
+       [2027,3,6,"ויקהל"],[2027,3,13,"פקודי"],[2027,3,20,"ויקרא"],[2027,3,27,"צו"],
+       [2027,4,3,"שמיני"],[2027,4,10,"תזריע"],[2027,4,17,"מצורע"],
+       [2027,5,1,"אחרי מות"],[2027,5,8,"קדושים"],[2027,5,15,"אמור"],[2027,5,22,"בהר"],[2027,5,29,"בחוקותי"],
+       [2027,6,5,"במדבר"],[2027,6,12,"נשא"],[2027,6,19,"בהעלותך"],[2027,6,26,"שלח"],
+       [2027,7,3,"קרח"],[2027,7,10,"חוקת"],[2027,7,17,"בלק"],[2027,7,24,"פינחס"],[2027,7,31,"מטות"],
+       [2027,8,7,"מסעי"],[2027,8,14,"דברים"],[2027,8,21,"ואתחנן"],[2027,8,28,"עקב"],
+       [2027,9,4,"ראה"],[2027,9,11,"שופטים"],[2027,9,18,"כי תצא"],[2027,9,25,"כי תבוא"],
+       [2027,10,9,"נצבים-וילך"],[2027,10,16,"האזינו"],[2027,10,30,"בראשית"],
+       [2027,11,6,"נח"],[2027,11,13,"לך לך"],[2027,11,20,"וירא"],[2027,11,27,"חיי שרה"],
+       [2027,12,4,"תולדות"],[2027,12,11,"ויצא"],[2027,12,18,"וישלח"],[2027,12,25,"וישב"],
+       [2028,1,1,"מקץ"],[2028,1,8,"ויגש"],[2028,1,15,"ויחי"],[2028,1,22,"שמות"],[2028,1,29,"וארא"],
+       [2028,2,5,"בא"],[2028,2,12,"בשלח"],[2028,2,19,"יתרו"],[2028,2,26,"משפטים"],
+       [2028,3,4,"תרומה"],[2028,3,11,"תצוה"],[2028,3,18,"כי תשא"],[2028,3,25,"ויקהל"],
+       [2028,4,1,"פקודי"],[2028,4,8,"ויקרא"],[2028,4,29,"צו"],
+       [2028,5,6,"שמיני"],[2028,5,13,"תזריע-מצורע"],[2028,5,20,"אחרי מות-קדושים"],[2028,5,27,"אמור"],
+       [2028,6,3,"בהר-בחוקותי"],[2028,6,10,"במדבר"],[2028,6,17,"נשא"],[2028,6,24,"בהעלותך"],
+       [2028,7,1,"שלח"],[2028,7,8,"קרח"],[2028,7,15,"חוקת"],[2028,7,22,"בלק"],[2028,7,29,"פינחס"],
+       [2028,8,5,"מטות-מסעי"],[2028,8,12,"דברים"],[2028,8,19,"ואתחנן"],[2028,8,26,"עקב"],
+       [2028,9,2,"ראה"],[2028,9,9,"שופטים"],[2028,9,16,"כי תצא"],[2028,9,30,"כי תבוא"],
+       [2028,10,7,"נצבים"],[2028,10,14,"האזינו"],[2028,10,28,"בראשית"],
+       [2028,11,4,"נח"],[2028,11,11,"לך לך"],[2028,11,18,"וירא"],[2028,11,25,"חיי שרה"],
+       [2028,12,2,"תולדות"],[2028,12,9,"ויצא"],[2028,12,16,"וישלח"],[2028,12,23,"וישב"],[2028,12,30,"מקץ"]
+      ].forEach(function(r){var d=new Date(r[0],r[1]-1,r[2]);d.setHours(12,0,0,0);m[d.getTime()]=r[3];});
+      return m;
+    })();
+    var PK=Object.keys(PM).map(Number).sort(function(a,b){return a-b;});
+    function getPara(sat){var s=new Date(sat);s.setHours(12,0,0,0);return PM[s.getTime()]||"";}
+    var PARA_EN={"אחרי מות":"Achrei Mot","אחרי מות-קדושים":"Achrei Mot-Kedoshim","אמור":"Emor","בא":"Bo","בהעלותך":"Behaalotcha","בהר":"Behar","בהר-בחוקותי":"Behar-Bechukotai","בחוקותי":"Bechukotai","בלק":"Balak","במדבר":"Bamidbar","בראשית":"Bereshit","בשלח":"Beshalach","דברים":"Devarim","האזינו":"Haazinu","וארא":"Vaera","ואתחנן":"Vaetchanan","ויגש":"Vayigash","ויחי":"Vayechi","ויצא":"Vayetze","ויקהל":"Vayakhel","ויקהל-פקודי":"Vayakhel-Pekudei","ויקרא":"Vayikra","וירא":"Vayera","וישב":"Vayeshev","וישלח":"Vayishlach","חוקת":"Chukat","חיי שרה":"Chayei Sarah","יתרו":"Yitro","כי תבוא":"Ki Tavo","כי תצא":"Ki Teitzei","כי תשא":"Ki Tisa","לך לך":"Lech Lecha","מטות":"Matot","מטות-מסעי":"Matot-Masei","מסעי":"Masei","מצורע":"Metzora","מקץ":"Miketz","משפטים":"Mishpatim","נח":"Noach","נצבים":"Nitzavim","נצבים-וילך":"Nitzavim-Vayelech","נשא":"Naso","עקב":"Eikev","פינחס":"Pinchas","פקודי":"Pekudei","צו":"Tzav","קדושים":"Kedoshim","קרח":"Korach","ראה":"Reeh","שופטים":"Shoftim","שלח":"Shlach","שמות":"Shemot","שמיני":"Shemini","תולדות":"Toldot","תזריע":"Tazria","תזריע-מצורע":"Tazria-Metzora","תצוה":"Tetzaveh","תרומה":"Terumah"};
+    var PARA_FR={"אחרי מות":"A’harei Mot","אחרי מות-קדושים":"A’harei Mot-Kedochim","אמור":"Emor","בא":"Bo","בהעלותך":"Béhaalotekha","בהר":"Behar","בהר-בחוקותי":"Behar-Be’houkotaï","בחוקותי":"Be’houkotaï","בלק":"Balak","במדבר":"Bamidbar","בראשית":"Béréchit","בשלח":"Bechala’h","דברים":"Devarim","האזינו":"Haazinou","וארא":"Vaéra","ואתחנן":"Vaet’hanane","ויגש":"Vayigach","ויחי":"Vaye’hi","ויצא":"Vayetsé","ויקהל":"Vayakhel","ויקהל-פקודי":"Vayakhel-Pekoudei","ויקרא":"Vayikra","וירא":"Vayéra","וישב":"Vayéchev","וישלח":"Vayichla’h","חוקת":"‘Houkat","חיי שרה":"‘Hayé Sarah","יתרו":"Yitro","כי תבוא":"Ki Tavo","כי תצא":"Ki Tetsé","כי תשא":"Ki Tissa","לך לך":"Lekh Lekha","מטות":"Matot","מטות-מסעי":"Matot-Massei","מסעי":"Massei","מצורע":"Metsora","מקץ":"Mikets","משפטים":"Michpatim","נח":"Noa’h","נצבים":"Nitsavim","נצבים-וילך":"Nitsavim-Vayelekh","נשא":"Nasso","עקב":"Eikev","פינחס":"Pin’has","פקודי":"Pekoudei","צו":"Tsav","קדושים":"Kedochim","קרח":"Kora’h","ראה":"Réeh","שופטים":"Choftim","שלח":"Chela’h","שמות":"Chémot","שמיני":"Chemini","תולדות":"Toldot","תזריע":"Tazria","תזריע-מצורע":"Tazria-Metsora","תצוה":"Tetsavé","תרומה":"Terouma"};
+    function paraName(he){if(!he)return"";return LANG==='he'?he:(LANG==='fr'?(PARA_FR[he]||he):(PARA_EN[he]||he));}
+    function paraPrefix(){return LANG==='fr'?"Paracha ":(LANG==='en'?"Parashat ":"פרשת ");}
+
+    // ── Omer ──────────────────────────────────────────────────────────────────────
+    var OS={2026:new Date(2026,3,1),2027:new Date(2027,3,21),2028:new Date(2028,3,10),2029:new Date(2029,3,29)};
+    var OMER_WORDS={
+      he:{one:["","אחד","שני","שלושה","ארבעה","חמישה","שישה","שבעה","שמונה","תשעה"],teen:["עשרה","אחד עשר","שנים עשר","שלושה עשר","ארבעה עשר","חמישה עשר","שישה עשר","שבעה עשר","שמונה עשר","תשעה עשר"],tens:{2:"עשרים",3:"שלושים",4:"ארבעים"},and:" ו",today:"היום",day:"יום",days:"ימים",are:"שהם",week:"שבוע",weeks:"שבועות",laOmer:"לעומר",shebe:" שב"},
+      en:{one:["","echad","shnei","shlosha","arba’a","chamisha","shisha","shiv’a","shmona","tish’a"],teen:["asara","echad asar","shneim asar","shlosha asar","arba’a asar","chamisha asar","shisha asar","shiv’a asar","shmona asar","tish’a asar"],tens:{2:"esrim",3:"shloshim",4:"arba’im"},and:" ve",today:"Hayom",day:"yom",days:"yamim",are:"shehem",week:"shavua",weeks:"shavuot",laOmer:"laOmer",shebe:" shebe"},
+      fr:{one:["","é’had","chné","chlocha","arba’a","‘hamicha","chicha","chiv’a","chmona","tich’a"],teen:["assara","é’had assar","chnéïm assar","chlocha assar","arba’a assar","‘hamicha assar","chicha assar","chiv’a assar","chmona assar","tich’a assar"],tens:{2:"essrim",3:"chlochim",4:"arba’im"},and:" vé",today:"Hayom",day:"yom",days:"yamim",are:"chéhem",week:"chavoua",weeks:"chavouot",laOmer:"laOmer",shebe:" chébé"}
+    };
+    var SEFIROT={
+      he:["","חסד","גבורה","תפארת","נצח","הוד","יסוד","מלכות"],
+      en:["","Chesed","Gevurah","Tiferet","Netzach","Hod","Yesod","Malchut"],
+      fr:["","‘Hessed","Guevoura","Tiféret","Nétsa’h","Hod","Yessod","Malkhout"]
+    };
+    function omerNumber(n){
+      var words=OMER_WORDS[LANG]||OMER_WORDS.he;
+      if(n<10)return words.one[n];
+      if(n<20)return words.teen[n-10];
+      var tens=Math.floor(n/10),ones=n%10;
+      return ones?words.one[ones]+words.and+words.tens[tens]:words.tens[tens];
+    }
+    function omerBlessing(){
+      if(LANG==='en')return"Baruch Atah Adonai Eloheinu Melech ha’olam,\nasher kid’shanu b’mitzvotav v’tzivanu\nal sefirat haOmer.";
+      if(LANG==='fr')return"Baroukh Ata Ado-naï Elo-hénou Mélekh haolam,\nachèr kidéchanou bémitsvotav vétsivanou\nal séfirat haOmer.";
+      return"בָּרוּךְ אַתָּה ה׳ אֱלֹהֵינוּ מֶלֶךְ הָעוֹלָם,\nאֲשֶׁר קִדְּשָׁנוּ בְּמִצְוֹתָיו וְצִוָּנוּ\nעַל סְפִירַת הָעֹמֶר.";
+    }
+    function getOmer(la,lo,now,tz){
+      var cityDay=cityNoon(now,tz);
+      var y=cityDay.getFullYear();if(!OS[y])return null;
+      var tz2=tzetF(la,lo,cityDay),after=tz2&&now>=tz2;
+      var today=new Date(cityDay.getFullYear(),cityDay.getMonth(),cityDay.getDate());
+      var startD=new Date(OS[y]);startD.setHours(0,0,0,0);
+      var diff=Math.round((today-startD)/86400000);
+      var day=after?diff+1:diff;
+      if(day<1||day>49)return null;
+      var words=OMER_WORDS[LANG]||OMER_WORDS.he;
+      var weeks=Math.floor(day/7),remainder=day%7;
+      var txt=words.today+" "+(day===1?words.day+" "+omerNumber(1):omerNumber(day)+" "+words.days);
+      if(weeks>0){
+        txt+=" "+words.are+" "+omerNumber(weeks)+" "+(weeks===1?words.week:words.weeks);
+        if(remainder>0)txt+=words.and+omerNumber(remainder)+" "+(remainder===1?words.day:words.days);
+      }
+      txt+=" "+words.laOmer;
+      var sefDay=((day-1)%7)+1,sefWeek=Math.floor((day-1)/7)+1;
+      var sefList=SEFIROT[LANG]||SEFIROT.he;
+      var sef=sefList[sefDay]+words.shebe+sefList[sefWeek];
+      return{day:day,lets:omerNumber(day),txt:txt+" | "+sef,bracha:omerBlessing(),after:after,soon:!after&&diff>=0&&diff<49};
+    }
+
+    function tk(){return city?dateKeyInTz(new Date(),city.tz):dateKeyInTz(new Date(),Intl.DateTimeFormat().resolvedOptions().timeZone);}
+    function gTef(){try{return JSON.parse(localStorage.getItem("tef")||"{}");}catch(e){return{};}}
+    function gNotif(){try{return JSON.parse(localStorage.getItem("shab_notif")||"false");}catch(e){return false;}}
+
+    var city=null,LR=[],nTimer=null;
+
+    // ── Native bridge (Android WebView / iOS WKWebView) ───────────────────────────
+    var NATIVE=(function(){
+      if(window.ShabbatNative)return{
+        city:function(c){try{ShabbatNative.onCityChanged(JSON.stringify(c));}catch(e){}},
+        tef:function(k,v){try{ShabbatNative.setTefillin(k,!!v);}catch(e){}},
+        enable:function(){try{ShabbatNative.enableNotifications();}catch(e){}},
+        disable:function(){try{ShabbatNative.disableNotifications();}catch(e){}},
+        language:function(lang){try{ShabbatNative.setLanguage(lang);}catch(e){}},
+        sync:function(s){try{ShabbatNative.syncAppSnapshot(JSON.stringify(s));}catch(e){}},
+        locate:function(){try{ShabbatNative.locate();}catch(e){gpsDone();}}
+      };
+      if(window.webkit&&window.webkit.messageHandlers&&window.webkit.messageHandlers.shabbat){
+        var post=function(m){try{window.webkit.messageHandlers.shabbat.postMessage(m);}catch(e){}};
+        return {
+          city:function(c){post({cmd:"city",city:c});},
+          tef:function(k,v){post({cmd:"tefillin",key:k,value:!!v});},
+          enable:function(){post({cmd:"enableNotif"});},
+          disable:function(){post({cmd:"disableNotif"});},
+          language:function(lang){post({cmd:"setLanguage",language:lang});},
+          sync:function(s){post({cmd:"syncSnapshot",snapshot:s});},
+          locate:function(){post({cmd:"locate"});}
+        };
+      }
+      return null;
+    })();
+    var nativeNotifOn=false;
+    window.nativeNotifResult=function(ok){
+      nativeNotifOn=!!ok;
+      if(!ok)alert(t("notifPerm"));
+      refreshNotif();
+    };
+    window.nativeInit=function(st){
+      try{
+        if(st&&typeof st.notif!=="undefined")nativeNotifOn=!!st.notif;
+        if(st&&st.tef)localStorage.setItem("tef",JSON.stringify(st.tef));
+        if(city)render();else refreshNotif();
+      }catch(e){}
+    };
+
+    var extSearchTimer=null,extSearchSeq=0;
+    document.getElementById("inp").addEventListener("input",function(){
+      var q=this.value.trim(),ul=document.getElementById("sdrop");
+      if(extSearchTimer){clearTimeout(extSearchTimer);extSearchTimer=null;}
+      extSearchSeq++;
+      if(!q){ul.className="sdrop";ul.innerHTML="";return;}
+      if(q.indexOf("תמיכה")>=0||q.indexOf("טמיכה")>=0){
+        ul.innerHTML='<li style="justify-content:center;text-align:center;flex-direction:column;gap:4px"><div style="font-size:13px;color:#94a3b8">'+t("support")+'</div><a href="mailto:shabbatsupport@gmail.com" style="color:#93c5fd;font-size:16px;font-weight:700;text-decoration:none">shabbatsupport@gmail.com</a></li>';
+        ul.className="sdrop open";return;
+      }
+      var low=q.toLowerCase();
+      LR=CI.filter(function(c){return c.n.indexOf(q)>=0||c.e.toLowerCase().indexOf(low)>=0;}).slice(0,6);
+      if(LR.length){
+        ul.innerHTML=LR.map(function(_,i){return'<li ontouchend="pick('+i+')" onmousedown="pick('+i+')"><span>'+cityName(LR[i])+'</span><span class="sdrop-c">'+cityCountry(LR[i])+'</span></li>';}).join("");
+        ul.className="sdrop open";
+        return;
+      }
+      ul.className="sdrop";
+      if(q.length<2)return;
+      var mySeq=extSearchSeq;
+      extSearchTimer=setTimeout(function(){extCitySearch(q,mySeq);},400);
+    });
+    var EXR=[]; // external (countries.dev) search results, for pickExt(i)
+    function extCitySearch(q,mySeq){
+      var url="https://countries.dev/cities?q="+encodeURIComponent(q)+"&limit=6";
+      fetch(url).then(function(r){return r.ok?r.json():null;}).then(function(data){
+        if(mySeq!==extSearchSeq)return; // a newer search superseded this one
+        var ul=document.getElementById("sdrop");
+        var list=(data&&(data.cities||data.results||data.data))||(Array.isArray(data)?data:[]);
+        EXR=(list||[]).slice(0,6).filter(function(c){return c&&(c.lat!=null)&&(c.lng!=null||c.lon!=null)&&c.timezone;});
+        if(!EXR.length){ul.className="sdrop";return;}
+        ul.innerHTML=EXR.map(function(c,i){
+          var nm=c.name||c.city||"";var ctry=c.country||c.countryName||c.cc||"";
+          return'<li ontouchend="pickExt('+i+')" onmousedown="pickExt('+i+')"><span>'+nm+'</span><span class="sdrop-c">'+ctry+'</span></li>';
+        }).join("");
+        ul.className="sdrop open";
+      }).catch(function(){ /* offline or blocked — silently keep showing nothing extra */ });
+    }
+    function pickExt(i){
+      var c=EXR[i];if(!c)return;
+      var nm=c.name||c.city||"";
+      selectCity({n:nm,e:nm,f:nm,la:c.lat,lo:(c.lng!=null?c.lng:c.lon),tz:c.timezone,c:(c.country||c.countryName||c.cc||"")});
+    }
+    document.addEventListener("click",function(e){if(!e.target.closest("#sw"))document.getElementById("sdrop").className="sdrop";});
+
+    function pick(i){
+      selectCity(LR[i]);
+    }
+    function selectCity(c){
+      city=c;localStorage.setItem("lastCity",JSON.stringify(city));
+      document.getElementById("inp").value=cityLabel(city);
+      document.getElementById("sdrop").className="sdrop";
+      if(NATIVE)NATIVE.city(city);
+      render();schedNext();
+    }
+    function haversineKm(la1,lo1,la2,lo2){
+      var R=6371,dLa=(la2-la1)*Math.PI/180,dLo=(lo2-lo1)*Math.PI/180;
+      var a=Math.sin(dLa/2)*Math.sin(dLa/2)+Math.cos(la1*Math.PI/180)*Math.cos(la2*Math.PI/180)*Math.sin(dLo/2)*Math.sin(dLo/2);
+      return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
+    }
+    function nearestCity(la,lo){
+      var best=null,bestD=Infinity;
+      for(var i=0;i<CI.length;i++){
+        var d=haversineKm(la,lo,CI[i].la,CI[i].lo);
+        if(d<bestD){bestD=d;best=CI[i];}
+      }
+      return{city:best,km:bestD};
+    }
+    function gpsDone(){
+      var btn=document.getElementById("gpsBtn");
+      if(btn){btn.textContent="GPS";btn.disabled=false;btn.style.opacity="1";}
+      gpsBusy=false;
+      if(gpsSafetyTimer){clearTimeout(gpsSafetyTimer);gpsSafetyTimer=null;}
+    }
+    var gpsBusy=false,gpsSafetyTimer=null;
+    function gpsBtnClick(){
+      if(gpsBusy)return;
+      gpsBusy=true;
+      var btn=document.getElementById("gpsBtn");
+      if(btn){btn.textContent="...";btn.disabled=true;}
+      gpsSafetyTimer=setTimeout(gpsDone,20000);
+      // Always prefer native bridge (accurate GPS) over navigator.geolocation
+      // which can return inaccurate network-based location on Android WebView
+      if(NATIVE&&NATIVE.locate){
+        NATIVE.locate();
+      }else if(navigator.geolocation&&navigator.geolocation.getCurrentPosition){
+        navigator.geolocation.getCurrentPosition(function(pos){
+          gpsApply(pos.coords.latitude,pos.coords.longitude);
+        },function(err){
+          gpsDone();
+        },{enableHighAccuracy:true,timeout:15000,maximumAge:0});
+      }else gpsDone();
+    }
+    // Fetch Shabbat times from Hebcal using their JSON API (CORS-enabled)
+    function hebcalLookup(c,cb){
+      var url="https://www.hebcal.com/shabbat?cfg=json&latitude="+encodeURIComponent(c.la)+"&longitude="+encodeURIComponent(c.lo)+"&tzid="+encodeURIComponent(c.tz)+"&M=on&leyning=off&b="+encodeURIComponent(candleOffset(c));
+      fetch(url)
+        .then(function(r){return r.ok?r.json():null;})
+        .then(function(data){cb(data);})
+        .catch(function(){cb(null);});
+    }
+
+    // sat/fri values in this file are synthetic calendar dates at local noon.
+    // Read their Y/M/D fields directly; converting that synthetic instant through
+    // another timezone can move the date by one day for far-away cities.
+    function localDateKey(d){
+      return d.getFullYear()+"-"+("0"+(d.getMonth()+1)).slice(-2)+"-"+("0"+d.getDate()).slice(-2);
+    }
+    function readingCacheKey(c,sat){
+      var region=(c.tz==="Asia/Jerusalem"||c.c==="ישראל"||c.c==="Israel"||c.c==="IL")?"il":"diaspora";
+      return "hebcal_reading_v3_"+localDateKey(sat)+"_"+region+"_"+LANG;
+    }
+    function stripHebrewMarks(s){
+      return (s||"").replace(/[\u0591-\u05BD\u05BF-\u05C7]/g,"").replace(/\s+/g," ").trim();
+    }
+    function isSameCivilDay(a,b){
+      return !!a&&!!b&&a.getFullYear()===b.getFullYear()&&a.getMonth()===b.getMonth()&&a.getDate()===b.getDate();
+    }
+    function isSimchatTorahShabbat(c,sat){
+      var gy=sat.getFullYear(),years=[gy+3759,gy+3760,gy+3761];
+      var israel=(c.tz==="Asia/Jerusalem"||c.c==="ישראל"||c.c==="Israel"||c.c==="IL");
+      for(var i=0;i<years.length;i++){
+        var d=_hDate(years[i],7,israel?22:23);
+        if(isSameCivilDay(d,sat))return true;
+      }
+      return false;
+    }
+    function noRegularParashaText(){
+      return LANG==="he"
+        ?"אין פרשת שבוע רגילה בשבת זו"
+        :(LANG==="fr"
+          ?"Pas de paracha hebdomadaire régulière ce Chabbat"
+          :"No regular weekly parasha this Shabbat");
+    }
+    function setParashaCardText(text){
+      var pc=document.getElementById("paraCard");
+      if(!pc)return;
+      document.getElementById("paraName").textContent=text||noRegularParashaText();
+      pc.style.display="";
+    }
+    var hebcalOverlaySeq=0;
+    function fetchHebcalTimes(c,mySeq){
+      hebcalLookup(c,function(data){
+        if(mySeq!==renderSeq||!data||!data.items)return;
+        var candleD=null,havdD=null;
+        for(var i=0;i<data.items.length;i++){
+          var it=data.items[i];
+          if(!it.date)continue;
+          var d=new Date(it.date);
+          if(isNaN(d.getTime()))continue;
+          if(it.category==="candles"&&!candleD)candleD=d;
+          if(it.category==="havdalah"&&!havdD)havdD=d;
+        }
+        if(candleD)document.getElementById("tCandle").textContent=ft(candleD,c.tz);
+        if(havdD)document.getElementById("tHav").textContent=ft(havdD,c.tz);
+      });
+    }
+    function gpsApply(la,lo,nativeTz,nativeName,nativeCountry){
+      var r=nearestCity(la,lo);
+      var tz=nativeTz||Intl.DateTimeFormat().resolvedOptions().timeZone||"Asia/Jerusalem";
+      var fallbackName=nativeName||(r.city&&r.km<=15?cityName(r.city):t("currentLocation"));
+      var exact={n:fallbackName,e:fallbackName,f:fallbackName,la:Number(la),lo:Number(lo),tz:tz,c:nativeCountry||"",gps:true};
+
+      // Keep the exact GPS coordinates. Hebcal is used only to improve the display
+      // name/timezone; it must never replace the location with a nearby built-in city.
+      hebcalLookup(exact,function(data){
+        gpsDone();
+        if(data&&data.location&&data.location.tzid){
+          var loc=data.location,name=nativeName||loc.city||loc.title||fallbackName;
+          exact.n=exact.e=exact.f=name;
+          exact.tz=loc.tzid||tz;
+          exact.c=nativeCountry||loc.country||"";
+        }
+        selectCity(exact);
+      });
+    }
+    window.nativeLocationResult=function(la,lo,ok,tz,name,country){
+      if(ok&&typeof la==="number"&&typeof lo==="number")gpsApply(la,lo,tz,name,country);
+      else gpsDone();
+    };
+
+    var renderSeq=0;
+
+    function parseApiDate(value){
+      if(!value)return null;
+      var d=new Date(value);
+      return isNaN(d.getTime())?null:d;
+    }
+    function hebcalLang(){
+      return LANG==="fr"?"fr":"s";
+    }
+    function isIsraelCity(c){
+      var country=(c.c||"").toLowerCase();
+      return c.tz==="Asia/Jerusalem"||country==="il"||country==="israel"||country==="israël"||country==="ישראל";
+    }
+    function hebcalLocationQuery(c){
+      return "&latitude="+encodeURIComponent(c.la)+
+        "&longitude="+encodeURIComponent(c.lo)+
+        "&tzid="+encodeURIComponent(c.tz);
+    }
+    function addDaysKey(base,days){
+      var d=new Date(base);d.setDate(d.getDate()+days);return localDateKey(d);
+    }
+    function localizeApiTitle(item){
+      if(!item)return"";
+      if(LANG==="he")return stripHebrewMarks(item.hebrew||item.title||"");
+      return item.title||stripHebrewMarks(item.hebrew||"");
+    }
+    function cleanHolidayTitle(s){
+      return (s||"")
+        .replace(/^Erev\s+/i,"")
+        .replace(/^ערב\s+/,"")
+        .trim();
+    }
+    function weekdayInRange(start,end,weekday,tz){
+      var d=cityNoon(start,tz),last=cityNoon(end,tz);
+      while(d.getTime()<=last.getTime()){
+        if(d.getDay()===weekday)return true;
+        d.setDate(d.getDate()+1);
+      }
+      return false;
+    }
+    function collectObservanceTitle(items,start,end,c){
+      var names=[],seen={};
+      for(var i=0;i<items.length;i++){
+        var it=items[i];
+        if(it.category!=="holiday"||it.subcat!=="major")continue;
+        var id=it.date||"",day=id.slice(0,10);
+        if(!day)continue;
+        var keyStart=dateKeyInTz(start,c.tz),keyEnd=dateKeyInTz(end,c.tz);
+        if(day<keyStart||day>keyEnd)continue;
+        var nm=cleanHolidayTitle(localizeApiTitle(it));
+        if(!nm||/^Erev\b/i.test(nm)||/^ערב\b/.test(nm))continue;
+        if(!seen[nm]){seen[nm]=1;names.push(nm);}
+      }
+      var hasShabbat=weekdayInRange(start,end,6,c.tz);
+      if(hasShabbat){
+        var sh=t("shabbatName");
+        if(!seen[sh])names.unshift(sh);
+      }
+      return names.length?names.join(" + "):t("upcomingShabbat");
+    }
+    function observancesFromCalendar(data,c,now){
+      if(!data||!data.items)return null;
+      var items=data.items.slice().sort(function(a,b){
+        return (parseApiDate(a.date)||new Date(0))-(parseApiDate(b.date)||new Date(0));
+      });
+
+      var candidates=[],open=null;
+      for(var i=0;i<items.length;i++){
+        var it=items[i],dt=parseApiDate(it.date);
+        if(!dt)continue;
+        if(it.category==="candles"){
+          if(!open)open={entry:dt,exit:null,kind:"observance"};
+        }else if(it.category==="havdalah"&&open&&dt.getTime()>open.entry.getTime()){
+          open.exit=dt;
+          open.title=collectObservanceTitle(items,open.entry,open.exit,c);
+          candidates.push(open);
+          open=null;
+        }
+      }
+
+      // Hebcal publishes fast start/end as two chronological zmanim items
+      // with subcat=fast. Pair by order, not by translated title, so HE/EN/FR
+      // all behave identically.
+      var fastBegin=null,fastDay="";
+      for(var j=0;j<items.length;j++){
+        var z=items[j],zt=parseApiDate(z.date);
+        if(!zt||z.category!=="zmanim"||z.subcat!=="fast")continue;
+        var zDay=(z.date||"").slice(0,10);
+
+        if(!fastBegin||fastDay!==zDay){
+          fastBegin=zt;
+          fastDay=zDay;
+          continue;
+        }
+
+        var fastName="";
+        for(var k=0;k<items.length;k++){
+          var h=items[k];
+          if(h.category==="holiday"&&h.subcat==="fast"&&(h.date||"").slice(0,10)===fastDay){
+            fastName=localizeApiTitle(h);break;
+          }
+        }
+        candidates.push({entry:fastBegin,exit:zt,kind:"fast",title:fastName||((LANG==="he")?"צום":"Fast")});
+        fastBegin=null;
+        fastDay="";
+      }
+
+      candidates.sort(function(a,b){return a.entry-b.entry;});
+      return candidates.filter(function(x){
+        return x.exit&&x.exit.getTime()>now.getTime();
+      });
+    }
+    function omerFromCalendar(data,todayKey){
+      if(!data||!data.items)return null;
+      for(var i=0;i<data.items.length;i++){
+        var it=data.items[i];
+        if(it.category==="omer"&&(it.date||"").slice(0,10)===todayKey){
+          var title=localizeApiTitle(it),n=0,m=(it.title||"").match(/(\d+)/);
+          if(m)n=parseInt(m[1],10)||0;
+          return{day:n,title:title};
+        }
+      }
+      return null;
+    }
+    function nextSaturdayFromCity(now,tz){
+      var d=cityNoon(now,tz),diff=(6-d.getDay()+7)%7;
+      // On Saturday keep today until local night; Hebcal will still return the
+      // exact reading for that civil date.
+      d.setDate(d.getDate()+diff);
+      return d;
+    }
+    function readingFromHebcal(calendar,leyning,c,sat){
+      if(!calendar||!calendar.items)return noRegularParashaText();
+
+      var target=localDateKey(sat);
+      var candidates=[];
+
+      // "Weekly Parasha" must come only from Hebcal Calendar API events whose
+      // category is exactly "parashat". Festival Torah readings are not weekly
+      // parashot, even when the festival occurs on Shabbat.
+      for(var i=0;i<calendar.items.length;i++){
+        var item=calendar.items[i];
+        if(!item||item.category!=="parashat")continue;
+
+        var day=(item.date||"").slice(0,10);
+        if(!day||day<target)continue;
+
+        candidates.push(item);
+      }
+
+      candidates.sort(function(x,y){
+        return ((x.date||"").slice(0,10)).localeCompare((y.date||"").slice(0,10));
+      });
+
+      if(!candidates.length)return noRegularParashaText();
+
+      var parasha=candidates[0];
+      var he=stripHebrewMarks(parasha.hebrew||"").replace(/^פרשת\s+/,"").trim();
+      var en=(parasha.title||"").replace(/^Parashat\s+/i,"").trim();
+      var value=LANG==="he"
+        ?he
+        :(LANG==="fr"?(PARA_FR[he]||en):(PARA_EN[he]||en));
+
+      return value?paraPrefix()+value:noRegularParashaText();
+    }
+    function syncDisplayedSnapshot(c,todayKey,event,reading,sunrise,nightfall,events){
+      if(!NATIVE||!NATIVE.sync)return;
+      var snap={
+        source:"hebcal",
+        sourceDate:todayKey,
+        updatedAt:Date.now(),
+        city:cityName(c),
+        timezone:c.tz,
+        latitude:Number(c.la),
+        longitude:Number(c.lo),
+        sunrise:ft(sunrise,c.tz),
+        nightfall:ft(nightfall,c.tz),
+        eventTitle:event?event.title:"",
+        eventEntry:event?ft(event.entry,c.tz):"",
+        eventExit:event?ft(event.exit,c.tz):"",
+        eventEntryEpoch:event?event.entry.getTime():0,
+        eventExitEpoch:event?event.exit.getTime():0,
+        parasha:reading||"",
+        events:(events||[]).map(function(e){
+          return {
+            title:e.title||"",
+            entry:ft(e.entry,c.tz),
+            exit:ft(e.exit,c.tz),
+            entryEpoch:e.entry?e.entry.getTime():0,
+            exitEpoch:e.exit?e.exit.getTime():0
+          };
+        })
+      };
+      NATIVE.sync(snap);
+    }
+    function showHebcalBundle(c,mySeq,calendar,zmanim,leyning,todayKey,sat){
+      if(mySeq!==renderSeq||!calendar||!zmanim)return;
+      var now=new Date(),times=zmanim.times||{};
+      var sunrise=parseApiDate(times.sunrise),nightfall=parseApiDate(times.dusk||times.tzeit85deg);
+      var events=observancesFromCalendar(calendar,c,now);
+      var event=events.length?events[0]:null;
+      var reading=readingFromHebcal(calendar,leyning,c,sat);
+
+      document.getElementById("sunriseT").textContent=ft(sunrise,c.tz);
+      document.getElementById("starsT").textContent=ft(nightfall,c.tz);
+
+      if(event){
+        document.getElementById("evTitle").textContent=event.title;
+        document.getElementById("evDate").textContent=event.entry.toLocaleDateString(FMT_LOCALE,{day:"numeric",month:"long",year:"numeric",timeZone:c.tz});
+        document.getElementById("iconCandle").textContent=event.kind==="fast"?"🌅":"🕯️";
+        document.getElementById("iconHav").textContent="⭐";
+        document.getElementById("lblCandle").textContent=event.kind==="fast"?t("fastBegin"):t("entry");
+        document.getElementById("lblHav").textContent=event.kind==="fast"?t("fastEnd"):t("exit");
+        document.getElementById("tCandle").textContent=ft(event.entry,c.tz);
+        document.getElementById("tHav").textContent=ft(event.exit,c.tz);
+        document.getElementById("subCandle").textContent="";
+        document.getElementById("subHav").textContent="";
+      }else{
+        document.getElementById("evTitle").textContent=t("upcomingShabbat");
+        document.getElementById("evDate").textContent="";
+        document.getElementById("tCandle").textContent="--:--";
+        document.getElementById("tHav").textContent="--:--";
+      }
+
+      setParashaCardText(reading);
+
+      var omer=omerFromCalendar(calendar,todayKey),oc=document.getElementById("omerCard");
+      if(omer){
+        oc.classList.remove("hidden");
+        document.getElementById("omerNum").textContent=omer.day||"";
+        document.getElementById("omerLets").textContent="";
+        document.getElementById("omerTxt").textContent=omer.title;
+        document.getElementById("omerBracha").textContent=omerBlessing();
+        document.getElementById("omerSoon").classList.add("hidden");
+      }else{
+        oc.classList.add("hidden");
+      }
+
+      var tef=gTef(),tt=!!tef[tk()],tb=document.getElementById("tefBtn");
+      tb.textContent=tt?t("tefOn"):t("tefOff");
+      tb.className=tt?"on":"";
+
+      refreshNotif();
+      document.getElementById("main").classList.remove("hidden");
+      document.getElementById("empty").classList.add("hidden");
+
+      syncDisplayedSnapshot(c,todayKey,event,reading,sunrise,nightfall,events);
+    }
+    function fetchHebcalBundle(c,mySeq){
+      var now=new Date(),today=cityNoon(now,c.tz),todayKey=localDateKey(today);
+      var sat=nextSaturdayFromCity(now,c.tz);
+      var start=addDaysKey(today,-7),end=addDaysKey(today,30);
+      var israel=isIsraelCity(c)?"on":"off";
+      var loc=hebcalLocationQuery(c);
+
+      var calUrl="https://www.hebcal.com/hebcal?v=1&cfg=json"+
+        "&start="+start+"&end="+end+
+        "&maj=on&min=on&mod=on&nx=on&mf=on&ss=on&s=on&o=on"+
+        "&c=on&M=on&leyning=off&i="+israel+
+        "&b="+encodeURIComponent(candleOffset(c))+
+        "&lg="+hebcalLang()+loc;
+      var zmanUrl="https://www.hebcal.com/zmanim?cfg=json&date="+todayKey+loc;
+      var leyUrl="https://www.hebcal.com/leyning?cfg=json&date="+localDateKey(sat)+
+        "&i="+israel+"&triennial=off";
+
+      Promise.all([
+        fetch(calUrl).then(function(r){if(!r.ok)throw new Error("calendar "+r.status);return r.json();}),
+        fetch(zmanUrl).then(function(r){if(!r.ok)throw new Error("zmanim "+r.status);return r.json();}),
+        fetch(leyUrl).then(function(r){if(!r.ok)throw new Error("leyning "+r.status);return r.json();})
+      ]).then(function(all){
+        showHebcalBundle(c,mySeq,all[0],all[1],all[2],todayKey,sat);
+      }).catch(function(){
+        // No invented/local calculated replacement: keep the last screen if it
+        // exists, otherwise show unavailable placeholders until Hebcal responds.
+        if(mySeq!==renderSeq)return;
+        document.getElementById("sunriseT").textContent="--:--";
+        document.getElementById("starsT").textContent="--:--";
+        document.getElementById("tCandle").textContent="--:--";
+        document.getElementById("tHav").textContent="--:--";
+        setParashaCardText("");
+        document.getElementById("main").classList.remove("hidden");
+        document.getElementById("empty").classList.add("hidden");
+      });
+    }
+    function render(){
+      if(!city)return;
+      var mySeq=++renderSeq;
+      document.getElementById("sunriseT").textContent="--:--";
+      document.getElementById("starsT").textContent="--:--";
+      document.getElementById("tCandle").textContent="--:--";
+      document.getElementById("tHav").textContent="--:--";
+      setParashaCardText("");
+      fetchHebcalBundle(city,mySeq);
+    }
+
+    function togTef(){var tef=gTef(),k=tk();tef[k]=!tef[k];localStorage.setItem("tef",JSON.stringify(tef));if(NATIVE)NATIVE.tef(k,tef[k]);render();}
+
+    function refreshNotif(){
+      var btn=document.getElementById("notifBtn");
+      var active=NATIVE?nativeNotifOn:(gNotif()&&typeof Notification!=="undefined"&&Notification.permission==="granted");
+      if(active){btn.textContent=t("notifOn");btn.className="on";}
+      else{btn.textContent=t("notifOff");btn.className="off";if(!NATIVE&&gNotif())localStorage.setItem("shab_notif","false");}
+    }
+
+    function togNotif(){
+      if(NATIVE){
+        if(nativeNotifOn){NATIVE.disable();nativeNotifOn=false;refreshNotif();}
+        else NATIVE.enable();
+        return;
+      }
+      if(gNotif()&&typeof Notification!=="undefined"&&Notification.permission==="granted"){
+        localStorage.setItem("shab_notif","false");if(nTimer){clearTimeout(nTimer);nTimer=null;}refreshNotif();return;
+      }
+      if(typeof Notification==="undefined"){alert(t("openChrome"));return;}
+      if(Notification.permission==="denied"){alert(t("notifDenied"));return;}
+      Notification.requestPermission().then(function(p){
+        if(p==="granted"){localStorage.setItem("shab_notif","true");refreshNotif();schedNext();}
+        else alert(t("notifNo"));
+      });
+    }
+
+    function schedNext(){
+      if(NATIVE)return;
+      if(!city||!gNotif()||typeof Notification==="undefined"||Notification.permission!=="granted")return;
+      if(nTimer){clearTimeout(nTimer);nTimer=null;}
+      var now=new Date(),la=city.la,lo=city.lo,tz=city.tz;
+      var today=cityNoon(now,tz);
+      var fri;
+      if(today.getDay()===5)fri=new Date(today);
+      else fri=nxtDow(today,5);
+      var cT=candF(la,lo,fri,city);if(!cT)return;
+      var delay=cT.getTime()-Date.now()-3*3600000;
+      if(delay<=0){fri=nxtDow(fri,5);cT=candF(la,lo,fri,city);if(!cT)return;delay=cT.getTime()-Date.now()-3*3600000;}
+      if(delay>0&&delay<8*86400000){
+        var ct=cT,tzz=tz;
+        nTimer=setTimeout(function(){
+          try{new Notification(t("notifTitle"),{body:t("notifBody")+ft(ct,tzz)});}catch(e){}
+          setTimeout(schedNext,10*60000);
+        },delay);
+      }
+    }
+
+    (function(){
+      applyLang();
+      try{var s=localStorage.getItem("lastCity");if(s){city=JSON.parse(s);document.getElementById("inp").value=cityLabel(city);if(NATIVE)NATIVE.city(city);render();schedNext();}}catch(e){}
+    })();
+    setInterval(function(){if(city)render();},30000);
+</script>
+</body>
+</html>
