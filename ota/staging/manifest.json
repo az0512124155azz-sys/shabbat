@@ -5,6 +5,6 @@
   "contentUrl": "https://raw.githubusercontent.com/az0512124155azz-sys/shabbat/main/ota/staging/releases/20261001-18/android/shabbat.html",
   "minAppVersionCode": 5,
   "reloadImmediately": false,
-  "configRevision": "cfg-20261001-04",
-  "configUrl": "https://raw.githubusercontent.com/az0512124155azz-sys/shabbat/main/ota/staging/config/cfg-20261001-04.json"
+  "configRevision": "cfg-20261001-05",
+  "configUrl": "https://raw.githubusercontent.com/az0512124155azz-sys/shabbat/main/ota/staging/config/cfg-20261001-05.json"
 }
