@@ -1,0 +1,8 @@
+{
+  "schema": 1,
+  "channel": "production",
+  "revision": "20261001-11",
+  "contentUrl": "https://raw.githubusercontent.com/az0512124155azz-sys/shabbat/main/ota/releases/20261001-11/android/shabbat.html",
+  "minAppVersionCode": 5,
+  "reloadImmediately": true
+}
