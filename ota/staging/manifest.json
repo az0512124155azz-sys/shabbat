@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "channel": "staging",
-  "revision": "20261001-14",
-  "contentUrl": "https://raw.githubusercontent.com/az0512124155azz-sys/shabbat/main/ota/staging/releases/20261001-14/android/shabbat.html",
+  "revision": "20261001-15",
+  "contentUrl": "https://raw.githubusercontent.com/az0512124155azz-sys/shabbat/main/ota/staging/releases/20261001-15/android/shabbat.html",
   "minAppVersionCode": 5,
   "reloadImmediately": true
 }
