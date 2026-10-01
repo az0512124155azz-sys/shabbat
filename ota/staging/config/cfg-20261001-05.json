@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "revision": "cfg-20261001-05",
+  "labels": {
+    "he": {
+      "sunrise": "נץ החמה"
+    },
+    "en": {
+      "sunrise": "Sunrise"
+    },
+    "fr": {
+      "sunrise": "Lever du soleil"
+    }
+  }
+}
