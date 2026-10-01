@@ -1,0 +1,15 @@
+{
+  "schema": 1,
+  "revision": "cfg-20261001-04",
+  "labels": {
+    "he": {
+      "sunrise": "אבישי הגאון"
+    },
+    "en": {
+      "sunrise": "Avishai the Genius"
+    },
+    "fr": {
+      "sunrise": "Avishai le génie"
+    }
+  }
+}
